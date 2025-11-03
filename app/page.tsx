@@ -9,7 +9,7 @@ const FaultyTerminal = dynamic(() => import('./FaultyTerminal'), {
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#199f4b] font-sans dark:bg-black" style={{ width: '100%', height: '600px', position: 'fixed' }}>
+    <div className="flex min-h-screen items-center justify-center bg-opacity-0 font-sans dark:bg-black" style={{ width: '100%', height: '600px', position: 'fixed' }}>
       <FaultyTerminal
         scale={1.5}
         gridMul={[2, 2]}
@@ -29,9 +29,7 @@ export default function Home() {
         pageLoadAnimation={false}
         brightness={1}
       />
-      {/* flex min-h-screen w-full max-w-3xl flex-col */}
-      <main className="items-center justify-center py-32 px-16 bg-white bg-opacity-0 sm:items-start">
-        <Image
+      <Image
           className="dark:invert"
           src="/logo.svg"
           alt="Robotics Team logo"
@@ -39,6 +37,9 @@ export default function Home() {
           height={1000}
           priority
         />
+      {/* flex min-h-screen w-full max-w-3xl flex-col */}
+      <main className="items-center justify-center py-32 px-16 bg-white-0 sm:items-start">
+        
         {/* <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
           <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
             FTC 26637 Circuit Crawlers
