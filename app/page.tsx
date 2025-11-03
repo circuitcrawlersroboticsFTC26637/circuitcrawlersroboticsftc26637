@@ -4,23 +4,13 @@
 import Image from "next/image";
 import dynamic from 'next/dynamic';
 const FaultyTerminal = dynamic(() => import('./FaultyTerminal'), {
-  ssr: true,
+  ssr: false,
 });
 
 export default function Home() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-[#199f4b] font-sans dark:bg-black" style={{ width: '100%', height: '600px', position: 'relative' }}>
-      
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-center py-32 px-16 bg-[#199f4b] dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/logo.svg"
-          alt="Robotics Team logo"
-          width={1000}
-          height={1000}
-          priority
-        />
-        <FaultyTerminal
+      <FaultyTerminal
         scale={1.5}
         gridMul={[2, 1]}
         digitSize={1.2}
@@ -38,6 +28,15 @@ export default function Home() {
         mouseStrength={0.5}
         pageLoadAnimation={false}
         brightness={1}
+        />
+      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-center py-32 px-16 bg-[#199f4b] dark:bg-black sm:items-start">
+        <Image
+          className="dark:invert"
+          src="/logo.svg"
+          alt="Robotics Team logo"
+          width={1000}
+          height={1000}
+          priority
         />
         {/* <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
           <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
