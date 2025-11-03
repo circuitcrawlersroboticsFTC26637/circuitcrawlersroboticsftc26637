@@ -1,6 +1,11 @@
-import Image from "next/image";
-import FaultyTerminal from "./FaultyTerminal";
+'use client';
 
+
+import Image from "next/image";
+import dynamic from 'next/dynamic';
+const FaultyTerminal = dynamic(() => import('./FaultyTerminal'), {
+  ssr: false,
+});
 
 export default function Home() {
   return (
