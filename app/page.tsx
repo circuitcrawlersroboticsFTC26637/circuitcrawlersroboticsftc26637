@@ -38,7 +38,7 @@ export default function Home() {
           priority
         /> */}
       {/* flex min-h-screen w-full max-w-3xl flex-col */}
-      <main className="items-center justify-center" style={{position: "absolute", top: "50%", left: "50%", width: "100%", height: "100%"}}>
+      <main className="items-center justify-center" style={{position: "absolute", width: "100%", height: "100%"}}>
         <Image
           className="dark:invert"
           src="/logo.svg"
