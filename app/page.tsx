@@ -1,8 +1,11 @@
 import Image from "next/image";
+import FaultyTerminal from "./FaultyTerminal";
+
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#199f4b] font-sans dark:bg-black">
+    <div className="flex min-h-screen items-center justify-center bg-[#199f4b] font-sans dark:bg-black" style={{ width: '100%', height: '600px', position: 'relative' }}>
+      
       <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-center py-32 px-16 bg-[#199f4b] dark:bg-black sm:items-start">
         <Image
           className="dark:invert"
@@ -11,6 +14,25 @@ export default function Home() {
           width={1000}
           height={1000}
           priority
+        />
+        <FaultyTerminal
+        scale={1.5}
+        gridMul={[2, 1]}
+        digitSize={1.2}
+        timeScale={1}
+        pause={false}
+        scanlineIntensity={1}
+        glitchAmount={1}
+        flickerAmount={1}
+        noiseAmp={1}
+        chromaticAberration={0}
+        dither={0}
+        curvature={0}
+        tint="#ffffff"
+        mouseReact={true}
+        mouseStrength={0.5}
+        pageLoadAnimation={false}
+        brightness={1}
         />
         {/* <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
           <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
