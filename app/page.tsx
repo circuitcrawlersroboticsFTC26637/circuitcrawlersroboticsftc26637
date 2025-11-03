@@ -4,7 +4,7 @@
 import Image from "next/image";
 import dynamic from 'next/dynamic';
 const FaultyTerminal = dynamic(() => import('./FaultyTerminal'), {
-  ssr: false,
+  ssr: true,
 });
 
 export default function Home() {
