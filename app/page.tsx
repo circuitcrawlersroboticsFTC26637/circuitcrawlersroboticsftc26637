@@ -9,7 +9,7 @@ const FaultyTerminal = dynamic(() => import('./FaultyTerminal'), {
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#199f4b] font-sans dark:bg-black" style={{ width: '100%', height: '600px', position: 'relative' }}>
+    <div className="flex min-h-screen items-center justify-center bg-[#199f4b] font-sans dark:bg-black">
       <FaultyTerminal
         scale={1.5}
         gridMul={[2, 1]}
