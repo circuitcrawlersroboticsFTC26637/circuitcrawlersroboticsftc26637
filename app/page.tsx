@@ -28,7 +28,7 @@ export default function Home() {
         mouseStrength={0.5}
         pageLoadAnimation={false}
         brightness={1}
-        />
+      />
       <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-center py-32 px-16 bg-[#199f4b] dark:bg-black sm:items-start">
         <Image
           className="dark:invert"
