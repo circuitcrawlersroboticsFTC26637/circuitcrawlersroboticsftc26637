@@ -40,7 +40,7 @@ export default function Home() {
       {/* flex min-h-screen w-full max-w-3xl flex-col */}
       <div className="felx absolute items-center justify-center z-0">
         <Image
-          className="dark:invert"
+          className="max-w-xs md:max-w-sm lg:max-w-md"
           src="/logo.svg"
           alt="Robotics Team logo"
           width={500}
