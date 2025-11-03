@@ -9,7 +9,7 @@ const FaultyTerminal = dynamic(() => import('./FaultyTerminal'), {
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-opacity-0 font-sans dark:bg-black" style={{ width: '100%', height: '600px', position: 'relative' }}>
+    <div className="fixed inset-0 flex h-screen w-screen overflow-x-hideen overflow-y-hidden z-[-1]" >
       <FaultyTerminal
         scale={1.5}
         gridMul={[2, 2]}
@@ -38,7 +38,7 @@ export default function Home() {
           priority
         /> */}
       {/* flex min-h-screen w-full max-w-3xl flex-col */}
-      <div style={{position: "absolute", top: "300px", left: "100px", width: "100%", height: "100%"}}>
+      <div className="felx absolute items-center justify-center z-0">
         <Image
           className="dark:invert"
           src="/logo.svg"
