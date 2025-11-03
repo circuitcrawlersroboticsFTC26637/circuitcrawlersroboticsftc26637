@@ -9,7 +9,7 @@ const FaultyTerminal = dynamic(() => import('./FaultyTerminal'), {
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-opacity-0 font-sans dark:bg-black" style={{ width: '100%', height: '600px', position: 'fixed' }}>
+    <div className="flex min-h-screen items-center justify-center bg-opacity-0 font-sans dark:bg-black" style={{ width: '100%', height: '600px', position: 'relative' }}>
       <FaultyTerminal
         scale={1.5}
         gridMul={[2, 2]}
@@ -38,6 +38,16 @@ export default function Home() {
           priority
         /> */}
       {/* flex min-h-screen w-full max-w-3xl flex-col */}
+      <main style={{position: "absolute", top: 0, left: 0, width: "100%", height: "100%"}}>
+        <Image
+          className="dark:invert"
+          src="/logo.svg"
+          alt="Robotics Team logo"
+          width={1000}
+          height={1000}
+          priority
+        />
+      </main>
       {/* <main className="items-center justify-center py-32 px-16 bg- sm:items-start"> */}
         
         {/* <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
