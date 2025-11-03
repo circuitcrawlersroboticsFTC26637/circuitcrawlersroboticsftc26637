@@ -3,7 +3,6 @@
 
 import Image from "next/image";
 import dynamic from 'next/dynamic';
-import { SpeedInsights } from "@vercel/speed-insights/next"
 const FaultyTerminal = dynamic(() => import('./FaultyTerminal'), {
   ssr: false,
 });
