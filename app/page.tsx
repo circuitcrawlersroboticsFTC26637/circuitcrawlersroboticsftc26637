@@ -38,7 +38,7 @@ export default function Home() {
           priority
         /> */}
       {/* flex min-h-screen w-full max-w-3xl flex-col */}
-      <div className="flex absolute items-center justify-center z-10">
+      <div className="absolute items-center justify-center z-10">
         <Image
           className="
           absolute 
