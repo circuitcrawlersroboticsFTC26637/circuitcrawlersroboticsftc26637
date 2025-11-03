@@ -38,9 +38,14 @@ export default function Home() {
           priority
         /> */}
       {/* flex min-h-screen w-full max-w-3xl flex-col */}
-      <div className="felx absolute items-center justify-center z-0">
+      <div className="flex absolute items-center justify-center z-0">
         <Image
-          className="max-w-xs md:max-w-sm lg:max-w-md"
+          className="
+          absolute 
+          top-1/2
+          left-1/2
+          -translate-x-1/2
+          -translate-y-1/2"
           src="/logo.svg"
           alt="Robotics Team logo"
           width={500}
