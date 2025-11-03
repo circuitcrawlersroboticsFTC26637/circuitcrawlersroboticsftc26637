@@ -9,7 +9,7 @@ const FaultyTerminal = dynamic(() => import('./FaultyTerminal'), {
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#199f4b] font-sans dark:bg-black">
+    <div className="flex min-h-screen items-center justify-center bg-[#199f4b] font-sans dark:bg-black" style={{ width: '100%', height: '600px', position: 'relative' }}>
       <FaultyTerminal
         scale={1.5}
         gridMul={[2, 1]}
@@ -29,7 +29,7 @@ export default function Home() {
         pageLoadAnimation={false}
         brightness={1}
       />
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-center py-32 px-16 bg-[#199f4b] dark:bg-black sm:items-start">
+      {/* <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-center py-32 px-16 bg-[#199f4b] dark:bg-black sm:items-start">
         <Image
           className="dark:invert"
           src="/logo.svg"
@@ -37,7 +37,7 @@ export default function Home() {
           width={1000}
           height={1000}
           priority
-        />
+        /> */}
         {/* <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
           <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
             FTC 26637 Circuit Crawlers
@@ -85,7 +85,7 @@ export default function Home() {
             Documentation
           </a>
         </div> */}
-      </main>
+      {/* </main> */}
     </div>
   );
 }
