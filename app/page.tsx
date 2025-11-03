@@ -29,7 +29,7 @@ export default function Home() {
         pageLoadAnimation={false}
         brightness={1}
       />
-      {/* <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-center py-32 px-16 bg-[#199f4b] dark:bg-black sm:items-start">
+      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-center py-32 px-16 bg-opacity-0 sm:items-start">
         <Image
           className="dark:invert"
           src="/logo.svg"
@@ -37,7 +37,7 @@ export default function Home() {
           width={1000}
           height={1000}
           priority
-        /> */}
+        />
         {/* <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
           <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
             FTC 26637 Circuit Crawlers
@@ -85,7 +85,7 @@ export default function Home() {
             Documentation
           </a>
         </div> */}
-      {/* </main> */}
+      </main>
     </div>
   );
 }
