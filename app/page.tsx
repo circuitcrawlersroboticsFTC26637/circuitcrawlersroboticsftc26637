@@ -38,13 +38,13 @@ export default function Home() {
           priority
         /> */}
       {/* flex min-h-screen w-full max-w-3xl flex-col */}
-      <main style={{position: "absolute", top: 0, left: 0, width: "100%", height: "100%"}}>
+      <main style={{position: "absolute", top: "16px", left: "32px", width: "100%", height: "100%"}}>
         <Image
           className="dark:invert"
           src="/logo.svg"
           alt="Robotics Team logo"
-          width={1000}
-          height={1000}
+          width={500}
+          height={500}
           priority
         />
       </main>
