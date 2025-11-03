@@ -34,8 +34,8 @@ export default function Home() {
           className="dark:invert"
           src="/logo.svg"
           alt="Robotics Team logo"
-          width={1000}
-          height={1000}
+          width={10}
+          height={10}
           priority
         />
         {/* <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
