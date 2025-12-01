@@ -29,15 +29,18 @@ export default function Home() {
     <div className="fixed inset-0 flex h-screen w-screen overflow-x-hideen overflow-y-hidden z-[-1]" >
       <FaultyLogoTerminal
         // ➡️ LogoLoop Props
-        logos={techLogos} // This is where you pass your logo array!
-        speed={150}
+        logos={techLogos} // The list of logos we defined above
+        speed={100}
+        direction="left"
         logoHeight={48}
-        scaleOnHover={true}
+        gap={32}
         
-        // ➡️ Terminal Props (Glitch-free, Warp-enabled)
-        curvature={2} // Slight warp
-        tint="#00ff00"   // Green terminal color
-        mouseReact={true}
+        // ➡️ Terminal/Glitch Props (These re-enable the full effect)
+        tint="#00ff00"       // Sets the bright green terminal color
+        curvature={2}     // Keeps the screen warped/curved
+        glitchAmount={1.5}   // Increase if you want more aggressive distortion
+        flickerAmount={1.0}  // Ensures the screen flickers
+        noiseAmp={1.0}       // Ensures the background static/noise is present
       />
 
       {/* Basic horizontal loop */}

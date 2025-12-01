@@ -264,7 +264,7 @@ export interface FaultyLogoTerminalProps extends TerminalProps, LogoLoopProps {
 export default function FaultyLogoTerminal({
   // Terminal Props (defaults restore original glitch behavior)
   scale = 1,
-  gridMul = [2, 2],
+  gridMul = [2, 1],
   digitSize = 1.5,
   timeScale = 0.3,
   pause = false,
@@ -291,7 +291,7 @@ export default function FaultyLogoTerminal({
   gap,
   pauseOnHover,
   hoverSpeed,
-  fadeOut = false, // <-- FIXED: Defaulted to FALSE to remove gradient fade
+  fadeOut = false, // <-- Fixed: Defaulted to FALSE to remove gradient fade
   fadeOutColor,
   scaleOnHover,
   renderItem,
@@ -336,6 +336,16 @@ export default function FaultyLogoTerminal({
     const renderer = new Renderer({ dpr });
     rendererRef.current = renderer;
     const gl = renderer.gl;
+    
+    // --- IMPORTANT FIX: ENSURE CANVAS STYLING ---
+    gl.canvas.style.position = 'absolute';
+    gl.canvas.style.top = '0';
+    gl.canvas.style.left = '0';
+    gl.canvas.style.width = '100%';
+    gl.canvas.style.height = '100%';
+    gl.canvas.style.zIndex = '0'; 
+    // ------------------------------------------
+    
     gl.clearColor(0, 0, 0, 1);
 
     const geometry = new Triangle(gl);
@@ -353,11 +363,9 @@ export default function FaultyLogoTerminal({
         uDigitSize: { value: digitSize },
         uScanlineIntensity: { value: scanlineIntensity },
         
-        // --- RESTORED GLITCH EFFECTS ---
         uGlitchAmount: { value: glitchAmount }, 
         uFlickerAmount: { value: flickerAmount }, 
         uNoiseAmp: { value: noiseAmp },           
-        // --- END RESTORED ---
 
         uChromaticAberration: { value: chromaticAberration },
         uDither: { value: ditherValue },
@@ -450,7 +458,7 @@ export default function FaultyLogoTerminal({
     };
   }, [
     dpr, pause, timeScale, scale, gridMul, digitSize, scanlineIntensity, 
-    glitchAmount, flickerAmount, noiseAmp, // <--- GLITCH PROPS ARE DEPENDENCIES AGAIN
+    glitchAmount, flickerAmount, noiseAmp, 
     chromaticAberration, ditherValue, 
     curvature, tintVec, mouseReact, mouseStrength, pageLoadAnimation, 
     brightness, handleMouseMove
@@ -465,11 +473,7 @@ export default function FaultyLogoTerminal({
       style={containerStyle} 
       {...rest}
     >
-      {/* LOGOS AT THE BOTTOM:
-        - absolute bottom-0 left-0 right-0 pins it to the bottom and stretches it across.
-        - py-6 adds vertical padding.
-        - mx-auto max-w-7xl centers the logo content and limits its width on massive screens.
-      */}
+      {/* Logos are positioned at the bottom center (z-index 10 is higher than canvas z-index 0) */}
       <div className="absolute bottom-0 left-0 right-0 z-10 py-6">
         <div className="mx-auto max-w-7xl">
           <LogoLoop
