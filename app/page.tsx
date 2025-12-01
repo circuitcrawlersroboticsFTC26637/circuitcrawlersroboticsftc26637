@@ -35,7 +35,7 @@ export default function Home() {
         scaleOnHover={true}
         
         // ➡️ Terminal Props (Glitch-free, Warp-enabled)
-        curvature={0.15} // Slight warp
+        curvature={2} // Slight warp
         tint="#00ff00"   // Green terminal color
         mouseReact={true}
       />
