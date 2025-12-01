@@ -3,7 +3,7 @@
 'use client';
 
 //various imports
-import Image from "next/image";
+// import Image from "next/image";
 import dynamic from 'next/dynamic';
 import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss } from 'react-icons/si';
 
@@ -15,12 +15,12 @@ const techLogos = [
 ];
 
 //constant and other imports for various tsx files
-const FaultyTerminal = dynamic(() => import('./FaultyTerminal'), {
-  ssr: false,
-});
-const LogoLoop = dynamic(() => import('./LogoLoop'), {
-  ssr: false,
-});
+// const FaultyTerminal = dynamic(() => import('./FaultyTerminal'), {
+//   ssr: false,
+// });
+// const LogoLoop = dynamic(() => import('./LogoLoop'), {
+//   ssr: false,
+// });
 const FaultyLogoTerminal = dynamic(() => import('./FaultyLogoTerminal'), {
   ssr: false,
 });
