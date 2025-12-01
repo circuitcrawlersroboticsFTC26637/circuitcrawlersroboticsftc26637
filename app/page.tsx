@@ -10,7 +10,7 @@ const FaultyTerminal = dynamic(() => import('./FaultyTerminal'), {
 export default function Home() {
   return (
     <div className="fixed inset-0 flex h-screen w-screen overflow-x-hideen overflow-y-hidden z-[-1]" >
-      <FaultyTerminal
+      {/* <FaultyTerminal
         scale={1.5}
         gridMul={[2, 2]}
         digitSize={1.2}
@@ -28,7 +28,7 @@ export default function Home() {
         mouseStrength={0.5}
         pageLoadAnimation={false}
         brightness={1}
-      />
+      /> */}
       {/* <Image
           className="dark:invert"
           src="/logo.svg"
