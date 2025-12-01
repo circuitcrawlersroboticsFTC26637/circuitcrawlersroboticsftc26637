@@ -1,15 +1,152 @@
 'use client';
 
-// OGL Imports
 import { Renderer, Program, Mesh, Color, Triangle } from 'ogl';
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 
-// Assuming LogoLoop component and types are imported from their respective files
-import LogoLoop, { LogoLoopProps } from './LogoLoop'; // ADJUST THIS PATH
+// ==============================================================================
+// 1. LOGO LOOP COMPONENT AND TYPES (Integrated)
+// ==============================================================================
+
+interface LogoItem {
+  node: React.ReactNode;
+  title: string;
+  href?: string;
+  src?: string;
+  alt?: string;
+  width?: number;
+  height?: number;
+}
+
+interface LogoLoopProps {
+  logos: LogoItem[];
+  speed?: number;
+  direction?: 'left' | 'right';
+  width?: number | string;
+  logoHeight?: number | string;
+  gap?: number | string;
+  pauseOnHover?: boolean;
+  hoverSpeed?: number;
+  fadeOut?: boolean;
+  fadeOutColor?: string;
+  scaleOnHover?: boolean;
+  renderItem?: (item: LogoItem) => React.ReactNode;
+  ariaLabel?: string;
+  className?: string;
+  style?: React.CSSProperties;
+}
+
+const LogoLoop: React.FC<LogoLoopProps> = ({
+  logos,
+  speed = 100,
+  direction = 'left',
+  width = '100%',
+  logoHeight = 64,
+  gap = 16,
+  pauseOnHover = false,
+  hoverSpeed = 250,
+  fadeOut = false,
+  fadeOutColor = '#000000',
+  scaleOnHover = true,
+  renderItem,
+  ariaLabel = 'Scrolling Logos',
+  className = '',
+  style,
+}) => {
+  const isRight = direction === 'right';
+
+  const logoStyle: React.CSSProperties = {
+    height: logoHeight,
+    minWidth: 'auto',
+    marginRight: gap,
+  };
+
+  const animationStyle: React.CSSProperties = {
+    '--loop-speed': `${speed}s`,
+    '--loop-direction': isRight ? 'reverse' : 'normal',
+    '--loop-hover-speed': `${hoverSpeed}s`,
+  } as React.CSSProperties;
+
+  const fadeStyle: React.CSSProperties = fadeOut
+    ? {
+        maskImage: `linear-gradient(${
+          isRight ? 'to left' : 'to right'
+        }, transparent, ${fadeOutColor} 10%, ${fadeOutColor} 90%, transparent)`,
+        WebkitMaskImage: `linear-gradient(${
+          isRight ? 'to left' : 'to right'
+        }, transparent, ${fadeOutColor} 10%, ${fadeOutColor} 90%, transparent)`,
+      }
+    : {};
+
+  const duplicatedLogos = useMemo(() => {
+    // Duplicate the list 3 times to ensure a smooth loop
+    const totalLogos = logos.length;
+    const items = [...logos, ...logos, ...logos];
+    return items.map((item, index) => ({
+      ...item,
+      key: `${item.title}-${index}`,
+      index: index % totalLogos,
+    }));
+  }, [logos]);
+
+  const logoLoopClasses = `
+    flex-shrink-0 flex items-center justify-around space-x-4 min-w-full
+    animate-loop ${pauseOnHover ? 'group-hover:animate-pause' : ''}
+  `;
+
+  return (
+    <div
+      className={`relative overflow-hidden ${className} ${scaleOnHover ? 'group' : ''}`}
+      style={{ width, ...style, ...fadeStyle }}
+      role="list"
+      aria-label={ariaLabel}
+    >
+      <div className="flex w-fit" style={animationStyle}>
+        {[...Array(2)].map((_, containerIndex) => (
+          <div key={`container-${containerIndex}`} className={logoLoopClasses}>
+            {duplicatedLogos.map((item) => (
+              <div
+                key={item.key}
+                style={logoStyle}
+                className={`
+                  flex items-center justify-center p-2 
+                  ${scaleOnHover ? 'transition-transform duration-300 group-hover:scale-110' : ''}
+                `}
+              >
+                {renderItem ? (
+                  renderItem(item)
+                ) : item.src ? (
+                  <img
+                    src={item.src}
+                    alt={item.alt || item.title}
+                    style={{ height: '100%', width: item.width || 'auto' }}
+                  />
+                ) : (
+                  <span className="text-current">{item.node}</span>
+                )}
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+      <style>{`
+        @keyframes loop {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
+        }
+        .animate-loop {
+          animation: loop var(--loop-speed) linear infinite var(--loop-direction);
+        }
+        .group:hover .animate-pause {
+          animation-play-state: paused;
+          animation-duration: var(--loop-hover-speed);
+        }
+      `}</style>
+    </div>
+  );
+};
 
 // ==============================================================================
-// 1. FAULTY TERMINAL HELPER TYPES & SHADERS (Unchanged from previous response)
-//    (Include the 'hexToRgb' function, 'vertexShader', and 'fragmentShader' here)
+// 2. FAULTY TERMINAL HELPER TYPES & SHADERS
 // ==============================================================================
 
 type Vec2 = [number, number];
@@ -34,15 +171,14 @@ export interface TerminalProps {
   pageLoadAnimation?: boolean;
   brightness?: number;
 }
-// ... (Include vertexShader and fragmentShader here) ...
 
 const vertexShader = `
 attribute vec2 position;
 attribute vec2 uv;
 varying vec2 vUv;
 void main() {
-  vUv = uv;
-  gl_Position = vec4(position, 0.0, 1.0);
+  vUv = uv;
+  gl_Position = vec4(position, 0.0, 1.0);
 }
 `;
 
@@ -96,7 +232,7 @@ float fbm(vec2 p)
 {
   p *= 1.1;
   float f = 0.0;
-  float amp = 0.5 * uNoiseAmp; // Glitch control
+  float amp = 0.5 * uNoiseAmp;
   
   mat2 modify0 = rotate(time * 0.02);
   f += amp * noise(p);
@@ -172,7 +308,7 @@ float digit(vec2 p){
 
 float onOff(float a, float b, float c)
 {
-  return step(c, sin(iTime + a * cos(iTime * b))) * uFlickerAmount; // Glitch control
+  return step(c, sin(iTime + a * cos(iTime * b))) * uFlickerAmount;
 }
 
 float displace(vec2 look)
@@ -190,7 +326,7 @@ vec3 getColor(vec2 p){
     float displacement = displace(p);
     p.x += displacement;
 
-    if (uGlitchAmount != 1.0) { // Glitch control
+    if (uGlitchAmount != 1.0) {
       float extra = displacement * (uGlitchAmount - 1.0);
       p.x += extra;
     }
@@ -218,7 +354,7 @@ void main() {
     vec2 uv = vUv;
 
     if(uCurvature != 0.0){
-      uv = barrel(uv); // This provides the warp/curvature effect
+      uv = barrel(uv);
     }
     
     vec2 p = uv * uScale;
@@ -255,7 +391,7 @@ function hexToRgb(hex: string): [number, number, number] {
 
 
 // ==============================================================================
-// 2. COMBINED COMPONENT WITH GLITCH REMOVAL
+// 3. FAULTY LOGO TERMINAL (Combined Component)
 // ==============================================================================
 
 export interface FaultyLogoTerminalProps extends TerminalProps, LogoLoopProps {
@@ -265,19 +401,19 @@ export interface FaultyLogoTerminalProps extends TerminalProps, LogoLoopProps {
 
 
 export default function FaultyLogoTerminal({
-  // Terminal Props - Glitch controls will be overridden below
+  // Terminal Props (with glitch enabled by default)
   scale = 1,
   gridMul = [2, 1],
   digitSize = 1.5,
   timeScale = 0.3,
   pause = false,
   scanlineIntensity = 0.3,
-  glitchAmount = 1, // Keep the prop defined here for the spread, but it will be overridden in the uniforms
-  flickerAmount = 1, // Keep the prop defined here for the spread, but it will be overridden in the uniforms
-  noiseAmp = 1, // Keep the prop defined here for the spread, but it will be overridden in the uniforms
+  glitchAmount = 1,
+  flickerAmount = 1,
+  noiseAmp = 1,
   chromaticAberration = 0,
   dither = 0,
-  curvature = 0.2, // Keep this default for the warp effect
+  curvature = 0.2,
   tint = '#ffffff',
   mouseReact = true,
   mouseStrength = 0.2,
@@ -285,7 +421,7 @@ export default function FaultyLogoTerminal({
   pageLoadAnimation = true,
   brightness = 1,
   
-  // LogoLoop Props - Setting fadeOut=false to remove the white shadow
+  // LogoLoop Props - Setting fadeOut=false to remove the shadow (crisp edges)
   logos,
   speed,
   direction,
@@ -294,7 +430,7 @@ export default function FaultyLogoTerminal({
   gap,
   pauseOnHover,
   hoverSpeed,
-  fadeOut = false, // <--- FIXED: Set default to FALSE to remove the gradient fade/shadow
+  fadeOut = false, // <-- Crisp Edges (No Fade)
   fadeOutColor,
   scaleOnHover,
   renderItem,
@@ -307,7 +443,6 @@ export default function FaultyLogoTerminal({
   containerStyle,
   ...rest
 }: FaultyLogoTerminalProps) {
-  // ... (All refs and memoized values remain the same) ...
   const containerRef = useRef<HTMLDivElement>(null);
   const programRef = useRef<Program>(null);
   const rendererRef = useRef<Renderer>(null);
@@ -331,7 +466,6 @@ export default function FaultyLogoTerminal({
     mouseRef.current = { x, y };
   }, []);
 
-
   // --- OGL Initialization and Animation Loop ---
   useEffect(() => {
     const ctn = containerRef.current;
@@ -341,6 +475,16 @@ export default function FaultyLogoTerminal({
     const renderer = new Renderer({ dpr });
     rendererRef.current = renderer;
     const gl = renderer.gl;
+    
+    // --- FIX: ENSURE CANVAS STYLING FOR VISIBILITY AND LAYERING ---
+    gl.canvas.style.position = 'absolute';
+    gl.canvas.style.top = '0';
+    gl.canvas.style.left = '0';
+    gl.canvas.style.width = '100%';
+    gl.canvas.style.height = '100%';
+    gl.canvas.style.zIndex = '0'; // Place canvas behind the HTML logos
+    // ------------------------------------------
+    
     gl.clearColor(0, 0, 0, 1);
 
     const geometry = new Triangle(gl);
@@ -358,15 +502,13 @@ export default function FaultyLogoTerminal({
         uDigitSize: { value: digitSize },
         uScanlineIntensity: { value: scanlineIntensity },
         
-        // --- FIXED: GLITCH REMOVAL ---
-        uGlitchAmount: { value: 1.0 }, // 1.0 is the neutral value (no extra displacement)
-        uFlickerAmount: { value: 0.0 }, // 0.0 completely removes the flickering on/off effect
-        uNoiseAmp: { value: 0.0 }, // 0.0 completely removes the background noise
-        // --- END FIXED ---
+        uGlitchAmount: { value: glitchAmount }, 
+        uFlickerAmount: { value: flickerAmount }, 
+        uNoiseAmp: { value: noiseAmp },           
 
         uChromaticAberration: { value: chromaticAberration },
         uDither: { value: ditherValue },
-        uCurvature: { value: curvature }, // Curvature remains
+        uCurvature: { value: curvature },
         uTint: { value: new Color(tintVec[0], tintVec[1], tintVec[2]) },
         uMouse: {
           value: new Float32Array([smoothMouseRef.current.x, smoothMouseRef.current.y])
@@ -397,7 +539,7 @@ export default function FaultyLogoTerminal({
     resizeObserver.observe(ctn);
     resize();
 
-    // 3. Animation Loop (Unchanged)
+    // 3. Animation Loop
     const update = (t: number) => {
       rafRef.current = requestAnimationFrame(update);
 
@@ -443,7 +585,7 @@ export default function FaultyLogoTerminal({
 
     if (mouseReact) ctn.addEventListener('mousemove', handleMouseMove);
 
-    // 4. Cleanup (Unchanged)
+    // 4. Cleanup
     return () => {
       cancelAnimationFrame(rafRef.current);
       resizeObserver.disconnect();
@@ -455,7 +597,7 @@ export default function FaultyLogoTerminal({
     };
   }, [
     dpr, pause, timeScale, scale, gridMul, digitSize, scanlineIntensity, 
-    // We remove glitchAmount, flickerAmount, noiseAmp from dependencies since they are hardcoded to remove the glitch effect
+    glitchAmount, flickerAmount, noiseAmp, 
     chromaticAberration, ditherValue, 
     curvature, tintVec, mouseReact, mouseStrength, pageLoadAnimation, 
     brightness, handleMouseMove
@@ -466,29 +608,32 @@ export default function FaultyLogoTerminal({
   return (
     <div 
       ref={containerRef} 
+      // Ensure the container has w-full h-full and position: relative for absolute children to work
       className={`w-full h-full relative overflow-hidden ${containerClassName}`} 
       style={containerStyle} 
       {...rest}
     >
-      {/* LogoLoop component: Positioned to overlay the WebGL canvas */}
-      <div className="absolute inset-0 z-10 p-4"> 
-        <LogoLoop
-          logos={logos}
-          speed={speed}
-          direction={direction}
-          width={width}
-          logoHeight={logoHeight}
-          gap={gap}
-          pauseOnHover={pauseOnHover}
-          hoverSpeed={hoverSpeed}
-          fadeOut={fadeOut} // <--- Passed as FALSE, removing the white shadow/gradient
-          fadeOutColor={fadeOutColor}
-          scaleOnHover={scaleOnHover}
-          renderItem={renderItem}
-          ariaLabel={ariaLabel}
-          className={logoLoopClassName}
-          style={logoLoopStyle}
-        />
+      {/* Logos are positioned at the bottom center (z-index 10 is above canvas z-index 0) */}
+      <div className="absolute bottom-0 left-0 right-0 z-10 py-6">
+        <div className="mx-auto max-w-7xl">
+          <LogoLoop
+            logos={logos}
+            speed={speed}
+            direction={direction}
+            width={width}
+            logoHeight={logoHeight}
+            gap={gap}
+            pauseOnHover={pauseOnHover}
+            hoverSpeed={hoverSpeed}
+            fadeOut={fadeOut}
+            fadeOutColor={fadeOutColor}
+            scaleOnHover={scaleOnHover}
+            renderItem={renderItem}
+            ariaLabel={ariaLabel}
+            className={logoLoopClassName}
+            style={logoLoopStyle}
+          />
+        </div>
       </div>
     </div>
   );
