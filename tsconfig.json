@@ -31,7 +31,8 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts", 
-    "app/FaultyTerminal.tsx",  
+    "app/FaultyTerminal.tsx",
+    "app/LogoLoop.tsx"  
     ],
   "exclude": ["node_modules"]
 }

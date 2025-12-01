@@ -1,15 +1,42 @@
+
+//client side - optimization for dyanmic import 
 'use client';
 
-
+//various imports
 import Image from "next/image";
 import dynamic from 'next/dynamic';
+import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss } from 'react-icons/si';
+
+const techLogos = [
+  { node: <SiReact />, title: "React", href: "https://react.dev" },
+  { node: <SiNextdotjs />, title: "Next.js", href: "https://nextjs.org" },
+  { node: <SiTypescript />, title: "TypeScript", href: "https://www.typescriptlang.org" },
+  { node: <SiTailwindcss />, title: "Tailwind CSS", href: "https://tailwindcss.com" },
+];
+
+//constant and other imports for various tsx files
 const FaultyTerminal = dynamic(() => import('./FaultyTerminal'), {
   ssr: false,
 });
-
+const LogoLoop = dynamic(() => import('./LogoLoop'), {
+  ssr: false,
+});
 export default function Home() {
   return (
     <div className="fixed inset-0 flex h-screen w-screen overflow-x-hideen overflow-y-hidden z-[-1]" >
+      {/* Basic horizontal loop */}
+      <LogoLoop
+        logos={techLogos}
+        speed={120}
+        direction="left"
+        logoHeight={48}
+        gap={40}
+        hoverSpeed={0}
+        scaleOnHover
+        fadeOut
+        fadeOutColor="#ffffff"
+        ariaLabel="Technology partners"
+      />
       {/* <FaultyTerminal
         scale={1.5}
         gridMul={[2, 2]}
@@ -38,7 +65,7 @@ export default function Home() {
           priority
         /> */}
       {/* flex min-h-screen w-full max-w-3xl flex-col */}
-      <div className="absolute items-center justify-center z-10">
+      {/* <div className="absolute items-center justify-center z-10">
         <Image
           className="
           absolute 
@@ -52,7 +79,7 @@ export default function Home() {
           height={500}
           priority
         />
-      </div>
+      </div> */}
       {/* <main className="items-center justify-center py-32 px-16 bg- sm:items-start"> */}
         
         {/* <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
