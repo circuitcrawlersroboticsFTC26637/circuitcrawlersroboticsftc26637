@@ -3,7 +3,7 @@
 'use client';
 
 //various imports
-// import Image from "next/image";
+import Image from "next/image";
 import dynamic from 'next/dynamic';
 import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss } from 'react-icons/si';
 
