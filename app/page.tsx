@@ -14,6 +14,15 @@ const techLogos = [
   { node: <SiTailwindcss />, title: "Tailwind CSS", href: "https://tailwindcss.com" },
 ];
 
+import FaultyTerminalWithLogo, { LogoItem } from './FaultyTerminalWithLogo';
+
+const logos: LogoItem[] = [
+  { src: 'https://logo.clearbit.com/anthropic.com', alt: 'Anthropic' },
+  { src: 'https://logo.clearbit.com/openai.com', alt: 'OpenAI' },
+  { src: 'https://logo.clearbit.com/google.com', alt: 'Google' },
+  { src: 'https://logo.clearbit.com/microsoft.com', alt: 'Microsoft' },
+  { src: 'https://logo.clearbit.com/nvidia.com', alt: 'NVIDIA' }
+];
 //constant and other imports for various tsx files
 const FaultyTerminal = dynamic(() => import('./FaultyTerminal'), {
   ssr: false,
@@ -21,29 +30,19 @@ const FaultyTerminal = dynamic(() => import('./FaultyTerminal'), {
 // const LogoLoop = dynamic(() => import('./LogoLoop'), {
 //   ssr: false,
 // });
-const FaultyLogoTerminal = dynamic(() => import('./FaultyLogoTerminal'), {
-  ssr: false,
-  loading: () => <div className="h-screen w-full bg-black" />
-});
+
 export default function Home() {
   return (
     <div className="fixed inset-0 flex h-screen w-screen overflow-x-hideen overflow-y-hidden z-[-1]" >
-      {/* <FaultyLogoTerminal
-        // ➡️ LogoLoop Props
-        logos={techLogos} 
-        speed={100}
-        direction="left"
-        logoHeight={72}
-        gap={32}
-        
-        // ➡️ Terminal/Glitch Props
-        tint="#00ff00"       // Green terminal color
-        curvature={0.15}     // Adds the curved screen warp effect
-        glitchAmount={1.5}   // Makes the main distortion more aggressive
-        flickerAmount={1.0}  // Enables screen flickering
-        noiseAmp={1.0}       // Enables background noise/static
-      /> */}
-
+      <FaultyTerminalWithLogo
+        logos={logos}
+        logoSpeed={60}
+        logoHeight={28}
+        logoGap={40}
+        tint="#00ff88"
+        curvature={0.15}
+        brightness={1.2}
+      />
       {/* Basic horizontal loop */}
       {/* <LogoLoop
         logos={techLogos}
@@ -56,7 +55,7 @@ export default function Home() {
         fadeOutColor="#ffffff"
         ariaLabel="Technology partners"
       /> */}
-      <FaultyTerminal
+      {/* <FaultyTerminal
         scale={1.5}
         gridMul={[2, 2]}
         digitSize={1.2}
@@ -74,7 +73,7 @@ export default function Home() {
         mouseStrength={0.5}
         pageLoadAnimation={false}
         brightness={1}
-      />
+      /> */}
       {/* <Image
           className="dark:invert"
           src="/logo.svg"
