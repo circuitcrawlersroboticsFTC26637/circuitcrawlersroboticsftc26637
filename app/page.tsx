@@ -23,6 +23,7 @@ const techLogos = [
 // });
 const FaultyLogoTerminal = dynamic(() => import('./FaultyLogoTerminal'), {
   ssr: false,
+  loading: () => <div className="h-screen w-full bg-black" />
 });
 export default function Home() {
   return (
@@ -32,7 +33,7 @@ export default function Home() {
         logos={techLogos} 
         speed={100}
         direction="left"
-        logoHeight={48}
+        logoHeight={72}
         gap={32}
         
         // ➡️ Terminal/Glitch Props
