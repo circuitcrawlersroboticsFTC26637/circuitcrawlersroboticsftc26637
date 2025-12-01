@@ -21,11 +21,27 @@ const FaultyTerminal = dynamic(() => import('./FaultyTerminal'), {
 const LogoLoop = dynamic(() => import('./LogoLoop'), {
   ssr: false,
 });
+const FaultyLogoTerminal = dynamic(() => import('./FaultyLogoTerminal'), {
+  ssr: false,
+});
 export default function Home() {
   return (
     <div className="fixed inset-0 flex h-screen w-screen overflow-x-hideen overflow-y-hidden z-[-1]" >
+      <FaultyLogoTerminal
+        // ➡️ LogoLoop Props
+        logos={techLogos} // This is where you pass your logo array!
+        speed={150}
+        logoHeight={48}
+        scaleOnHover={true}
+        
+        // ➡️ Terminal Props (Glitch-free, Warp-enabled)
+        curvature={0.15} // Slight warp
+        tint="#00ff00"   // Green terminal color
+        mouseReact={true}
+      />
+
       {/* Basic horizontal loop */}
-      <LogoLoop
+      {/* <LogoLoop
         logos={techLogos}
         speed={120}
         direction="left"
@@ -35,7 +51,7 @@ export default function Home() {
         scaleOnHover
         fadeOutColor="#ffffff"
         ariaLabel="Technology partners"
-      />
+      /> */}
       {/* <FaultyTerminal
         scale={1.5}
         gridMul={[2, 2]}
