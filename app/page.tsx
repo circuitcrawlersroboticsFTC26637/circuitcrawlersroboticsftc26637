@@ -14,15 +14,8 @@ const techLogos = [
   { node: <SiTailwindcss />, title: "Tailwind CSS", href: "https://tailwindcss.com" },
 ];
 
-import FaultyTerminalWithLogo, { LogoItem } from './FaultyTerminalWithLogo';
 
-const logos: LogoItem[] = [
-  { src: 'https://logo.clearbit.com/anthropic.com', alt: 'Anthropic' },
-  { src: 'https://logo.clearbit.com/openai.com', alt: 'OpenAI' },
-  { src: 'https://logo.clearbit.com/google.com', alt: 'Google' },
-  { src: 'https://logo.clearbit.com/microsoft.com', alt: 'Microsoft' },
-  { src: 'https://logo.clearbit.com/nvidia.com', alt: 'NVIDIA' }
-];
+
 //constant and other imports for various tsx files
 const FaultyTerminal = dynamic(() => import('./FaultyTerminal'), {
   ssr: false,
@@ -30,6 +23,17 @@ const FaultyTerminal = dynamic(() => import('./FaultyTerminal'), {
 // const LogoLoop = dynamic(() => import('./LogoLoop'), {
 //   ssr: false,
 // });
+const FaultyTerminalWithLogo = dynamic(() => import('./FaultyTerminalWithLogo'), {
+  ssr: false,
+});
+import type { LogoItem } from './FaultyTerminalWithLogo';
+const logos: LogoItem[] = [
+  { src: 'https://logo.clearbit.com/anthropic.com', alt: 'Anthropic' },
+  { src: 'https://logo.clearbit.com/openai.com', alt: 'OpenAI' },
+  { src: 'https://logo.clearbit.com/google.com', alt: 'Google' },
+  { src: 'https://logo.clearbit.com/microsoft.com', alt: 'Microsoft' },
+  { src: 'https://logo.clearbit.com/nvidia.com', alt: 'NVIDIA' }
+];
 
 export default function Home() {
   return (
