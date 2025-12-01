@@ -37,9 +37,7 @@ export default function Home() {
         
         // ➡️ Terminal/Glitch Props (These re-enable the full effect)
         tint="#00ff00"       // Sets the bright green terminal color
-        curvature={2}     // Keeps the screen warped/curved
-        glitchAmount={1.5}   // Increase if you want more aggressive distortion
-        flickerAmount={1.0}  // Ensures the screen flickers
+        curvature={2}     // Keeps the screen warped/curved  // Ensures the screen flickers
         noiseAmp={1.0}       // Ensures the background static/noise is present
       />
 
