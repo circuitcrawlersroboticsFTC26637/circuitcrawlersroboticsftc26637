@@ -15,9 +15,9 @@ const techLogos = [
 ];
 
 //constant and other imports for various tsx files
-// const FaultyTerminal = dynamic(() => import('./FaultyTerminal'), {
-//   ssr: false,
-// });
+const FaultyTerminal = dynamic(() => import('./FaultyTerminal'), {
+  ssr: false,
+});
 // const LogoLoop = dynamic(() => import('./LogoLoop'), {
 //   ssr: false,
 // });
@@ -28,7 +28,7 @@ const FaultyLogoTerminal = dynamic(() => import('./FaultyLogoTerminal'), {
 export default function Home() {
   return (
     <div className="fixed inset-0 flex h-screen w-screen overflow-x-hideen overflow-y-hidden z-[-1]" >
-      <FaultyLogoTerminal
+      {/* <FaultyLogoTerminal
         // ➡️ LogoLoop Props
         logos={techLogos} 
         speed={100}
@@ -42,7 +42,7 @@ export default function Home() {
         glitchAmount={1.5}   // Makes the main distortion more aggressive
         flickerAmount={1.0}  // Enables screen flickering
         noiseAmp={1.0}       // Enables background noise/static
-      />
+      /> */}
 
       {/* Basic horizontal loop */}
       {/* <LogoLoop
@@ -56,7 +56,7 @@ export default function Home() {
         fadeOutColor="#ffffff"
         ariaLabel="Technology partners"
       /> */}
-      {/* <FaultyTerminal
+      <FaultyTerminal
         scale={1.5}
         gridMul={[2, 2]}
         digitSize={1.2}
@@ -74,7 +74,7 @@ export default function Home() {
         mouseStrength={0.5}
         pageLoadAnimation={false}
         brightness={1}
-      /> */}
+      />
       {/* <Image
           className="dark:invert"
           src="/logo.svg"
